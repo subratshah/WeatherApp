@@ -1,81 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <ImageView
-        android:id="@+id/location_image"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="20dp"
-        android:src="@drawable/ic_location_on_black_24dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/city_text" />
+    <data>
 
-    <TextView
-        android:id="@+id/city_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="16dp"
-        android:text="Glen Ridge"
-        android:textSize="20sp"
-        app:layout_constraintStart_toEndOf="@+id/location_image"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_goneMarginBottom="8dp" />
+        <variable
+            name="viewmodel"
+            type="com.example.weatherapp.WeaherViewModel" />
+    </data>
 
-    <ImageView
-        android:id="@+id/city_image"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginEnd="16dp"
-        android:src="@drawable/ic_location_city_black_24dp"
-        app:layout_constraintEnd_toStartOf="@+id/menu_image"
-        app:layout_constraintTop_toTopOf="@+id/location_image" />
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
 
-    <ImageView
-        android:id="@+id/menu_image"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginEnd="16dp"
-        android:src="@drawable/ic_menu_black_24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/city_image"
-        app:layout_goneMarginEnd="8dp" />
+        <ImageView
+            android:id="@+id/location_image"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="20dp"
+            android:src="@drawable/ic_location_on_black_24dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/city_text" />
 
-    <TextView
-        android:id="@+id/temp_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:text="21"
-        android:textSize="80dp"
-        app:layout_constraintBottom_toTopOf="@+id/condition_temp_text"
-        app:layout_constraintStart_toStartOf="@+id/condition_temp_text" />
+        <TextView
+            android:id="@+id/city_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="16dp"
+            android:text="Chennai"
+            android:textSize="20sp"
+            app:layout_constraintStart_toEndOf="@+id/location_image"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_goneMarginBottom="8dp" />
 
-    <TextView
-        android:id="@+id/condition_temp_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginBottom="20dp"
-        android:text="Cloudy 21/14 C"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_goneMarginBottom="8dp" />
+        <ImageView
+            android:id="@+id/city_image"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/ic_location_city_black_24dp"
+            app:layout_constraintEnd_toStartOf="@+id/menu_image"
+            app:layout_constraintTop_toTopOf="@+id/location_image" />
 
-    <ImageView
-        android:id="@+id/condition_image"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="32dp"
-        android:src="@drawable/ic_location_city_black_24dp"
-        app:layout_constraintBottom_toBottomOf="@+id/temp_text"
-        app:layout_constraintStart_toEndOf="@+id/temp_text" />
+        <ImageView
+            android:id="@+id/menu_image"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/ic_menu_black_24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/city_image"
+            app:layout_goneMarginEnd="8dp" />
 
-</android.support.constraint.ConstraintLayout>
+        <TextView
+            android:id="@+id/temp_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="21"
+            android:textSize="80dp"
+            app:layout_constraintBottom_toTopOf="@+id/condition_temp_text"
+            app:layout_constraintStart_toStartOf="@+id/condition_temp_text" />
+
+        <TextView
+            android:id="@+id/condition_temp_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginBottom="20dp"
+            android:text="Cloudy 21/14 C"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_goneMarginBottom="8dp" />
+
+        <ImageView
+            android:id="@+id/condition_image"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="32dp"
+            android:src="@drawable/ic_cloud_queue_black_24dp"
+            app:layout_constraintBottom_toBottomOf="@+id/temp_text"
+            app:layout_constraintStart_toEndOf="@+id/temp_text" />
+
+    </android.support.constraint.ConstraintLayout>
+</layout>
