@@ -11,5 +11,7 @@ public interface WeatherService {
               "X-RapidAPI-Key: 08aa8a2995msh3494129b67c7601p1d69bdjsn3599b96f027b"})
 
     @GET("/weather")
-    Call<Model> getWeather(@Query("q") String location);
+    Call<Model> getWeather(@Query("units") String unit,
+                           @Query("q") String location);
+
 }

@@ -19,8 +19,8 @@ public class Main {
     @SerializedName("temp_max")
     private double temp_max;
 
-    public double getTemp() {
-        return temp;
+    public int getTemp() {
+        return (int) temp;
     }
 
     public void setTemp(double temp) {
