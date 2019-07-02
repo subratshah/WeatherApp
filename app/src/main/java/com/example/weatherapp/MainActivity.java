@@ -3,6 +3,7 @@ package com.example.weatherapp;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView conditionText;
     private TextView pressureText;
     private TextView humidityText;
+    private ImageView conditionImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         conditionText = findViewById(R.id.condition_text);
         pressureText = findViewById(R.id.pressure_text);
         humidityText = findViewById(R.id.humidity_text);
+        conditionImage = findViewById(R.id.condition_image);
 
         getWeather();
     }
@@ -52,7 +55,14 @@ public class MainActivity extends AppCompatActivity {
                         tempText.setText(String.valueOf(response.body().getMain().getTemp()).concat("°C"));
                         pressureText.setText("Pressure: ".concat(String.valueOf(response.body().getMain().getPressure())));
                         humidityText.setText("Humidity: ".concat(String.valueOf(response.body().getMain().getHumidity())));
-                        conditionText.setText("Conditions: ".concat(response.body().getWeather().get(0).getMain()));
+                        String condition = response.body().getWeather().get(0).getMain();
+                        conditionText.setText("Conditions: ".concat(condition));
+                        if (condition.equalsIgnoreCase("Clouds"))
+                            conditionImage.setImageResource(R.drawable.ic_wb_cloudy_black_24dp);
+                        else if (condition.equalsIgnoreCase("Sunny"))
+                            conditionImage.setImageResource(R.drawable.ic_wb_sunny_black_24dp);
+                        else
+                            conditionImage.setImageResource(R.drawable.ic_cloud_queue_black_24dp);
                     }
                 }
 
