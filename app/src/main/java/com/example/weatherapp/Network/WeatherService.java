@@ -13,5 +13,4 @@ public interface WeatherService {
     @GET("/weather")
     Call<Model> getWeather(@Query("units") String unit,
                            @Query("q") String location);
-
 }

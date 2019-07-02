@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UI.SecondFragment">
+
+    <android.support.constraint.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".UI.MainActivity">
+
+        <ImageView
+            android:id="@+id/location_image"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="20dp"
+            android:src="@drawable/ic_location_on_black_24dp"
+            app:layout_constraintBottom_toBottomOf="@+id/city_text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/city_text" />
+
+        <TextView
+            android:id="@+id/city_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:text="City Name"
+            android:textSize="40sp"
+            app:layout_constraintEnd_toStartOf="@+id/city_image"
+            app:layout_constraintStart_toEndOf="@+id/location_image"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_goneMarginBottom="8dp" />
+
+        <ImageView
+            android:id="@+id/city_image"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/ic_location_city_black_24dp"
+            app:layout_constraintEnd_toStartOf="@+id/menu_image"
+            app:layout_constraintTop_toTopOf="@+id/location_image" />
+
+        <ImageView
+            android:id="@+id/menu_image"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/ic_menu_black_24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/city_image"
+            app:layout_goneMarginEnd="8dp" />
+
+        <TextView
+            android:id="@+id/temp_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            android:text="Temp"
+            android:textSize="80dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/condition_text" />
+
+        <ImageView
+            android:id="@+id/condition_image"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/condition_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/city_text" />
+
+        <TextView
+            android:id="@+id/condition_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:text="condition_text"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@id/pressure_text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_goneMarginBottom="8dp" />
+
+        <TextView
+            android:id="@+id/pressure_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:text="pressure_text"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@id/humidity_text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_goneMarginBottom="8dp" />
+
+        <TextView
+            android:id="@+id/humidity_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginBottom="8dp"
+            android:text="humidity_text"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@+id/temp_text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_goneMarginBottom="8dp" />
+
+    </android.support.constraint.ConstraintLayout>
+</FrameLayout>

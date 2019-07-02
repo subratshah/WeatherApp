@@ -1,23 +1,27 @@
-package com.example.weatherapp;
+package com.example.weatherapp.UI;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.weatherapp.Network.Model;
 import com.example.weatherapp.Network.RetrofitUtil;
 import com.example.weatherapp.Network.WeatherService;
+import com.example.weatherapp.R;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class MainActivity extends AppCompatActivity {
-    private static final String TAG = "MainActivity";
+public class SecondFragment extends Fragment {
+    private static final String TAG = "SecondFragment";
     private TextView cityText;
     private TextView tempText;
     private TextView conditionText;
@@ -25,27 +29,31 @@ public class MainActivity extends AppCompatActivity {
     private TextView humidityText;
     private ImageView conditionImage;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        cityText = findViewById(R.id.city_text);
-        tempText = findViewById(R.id.temp_text);
-        conditionText = findViewById(R.id.condition_text);
-        pressureText = findViewById(R.id.pressure_text);
-        humidityText = findViewById(R.id.humidity_text);
-        conditionImage = findViewById(R.id.condition_image);
-
-        getWeather();
+    public SecondFragment() {
     }
 
-    private void getWeather() {
+    @Override
+    public View onCreateView(LayoutInflater inflater, @NonNull ViewGroup container, Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
+        View rootView = inflater.inflate(R.layout.fragment_second, container, false);
+
+        cityText = rootView.findViewById(R.id.city_text);
+        tempText = rootView.findViewById(R.id.temp_text);
+        conditionText = rootView.findViewById(R.id.condition_text);
+        pressureText = rootView.findViewById(R.id.pressure_text);
+        humidityText = rootView.findViewById(R.id.humidity_text);
+        conditionImage = rootView.findViewById(R.id.condition_image);
+
+        getWeather("Delhi,in");
+        return rootView;
+    }
+
+    public void getWeather(String location) {
         try {
             Retrofit retrofit = RetrofitUtil.getRetrofitInstance();
             WeatherService weatherService = retrofit.create(WeatherService.class);
 
-            Call<Model> call = weatherService.getWeather("metric", "Chennai,in");
+            Call<Model> call = weatherService.getWeather("metric", location);
             call.enqueue(new Callback<Model>() {
 
                 @Override
@@ -68,7 +76,6 @@ public class MainActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<Model> call, Throwable t) {
-                    Toast.makeText(MainActivity.this, "Something went wrong!", Toast.LENGTH_SHORT).show();
                 }
             });
         } catch (Exception e) {
