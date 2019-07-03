@@ -7,26 +7,25 @@ import android.support.v4.app.FragmentPagerAdapter;
 import com.example.weatherapp.R;
 import com.example.weatherapp.UI.CityFragment;
 
-public class ViewPagerAdapter extends FragmentPagerAdapter {
-    private Fragment[] childFragments;
+import java.util.ArrayList;
 
-    public ViewPagerAdapter(FragmentManager fm) {
+public class ViewPagerAdapter extends FragmentPagerAdapter {
+    private ArrayList<Fragment> childFragments = new ArrayList<>();
+
+    public ViewPagerAdapter(FragmentManager fm, String[] cityList) {
         super(fm);
-        childFragments = new Fragment[]{
-                new CityFragment(R.layout.fragment_city,"Chennai,in"),
-                new CityFragment(R.layout.fragment_city,"Delhi,in"),
-                new CityFragment(R.layout.fragment_city,"Mumbai,in"),
-                new CityFragment(R.layout.fragment_city,"Varanasi,in")
-        };
+        for (String city : cityList) {
+            childFragments.add(new CityFragment(city));
+        }
     }
 
     @Override
     public Fragment getItem(int position) {
-        return childFragments[position];
+        return childFragments.get(position);
     }
 
     @Override
     public int getCount() {
-        return childFragments.length;
+        return childFragments.size();
     }
 }

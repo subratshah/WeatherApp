@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,25 +22,22 @@ import retrofit2.Retrofit;
 
 @SuppressLint("ValidFragment")
 public class CityFragment extends Fragment {
-    private static final String TAG = "CityFragment";
     private TextView cityText;
     private TextView tempText;
     private TextView conditionText;
     private TextView pressureText;
     private TextView humidityText;
     private ImageView conditionImage;
-    private int layoutId;
     private String location;
 
-    public CityFragment(int layoutId, String location) {
-        this.layoutId = layoutId;
+    public CityFragment(String location) {
         this.location = location;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, @NonNull ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        View rootView = inflater.inflate(layoutId, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_city, container, false);
 
         cityText = rootView.findViewById(R.id.city_text);
         tempText = rootView.findViewById(R.id.temp_text);
@@ -55,40 +51,36 @@ public class CityFragment extends Fragment {
     }
 
     public void getWeather(String location) {
-        try {
-            Retrofit retrofit = RetrofitUtil.getRetrofitInstance();
-            WeatherService weatherService = retrofit.create(WeatherService.class);
+        Retrofit retrofit = RetrofitUtil.getRetrofitInstance();
+        WeatherService weatherService = retrofit.create(WeatherService.class);
 
-            Call<Model> call = weatherService.getWeather("metric", location);
-            call.enqueue(new Callback<Model>() {
+        Call<Model> call = weatherService.getWeather("metric", location);
+        call.enqueue(new Callback<Model>() {
 
-                @Override
-                public void onResponse(Call<Model> call, Response<Model> response) {
-                    if (response.body() != null) {
-                        cityText.setText(response.body().getName());
-                        tempText.setText(String.valueOf(response.body().getMain().getTemp()).concat("°C"));
-                        pressureText.setText("Pressure: ".concat(String.valueOf(response.body().getMain().getPressure())));
-                        humidityText.setText("Humidity: ".concat(String.valueOf(response.body().getMain().getHumidity())));
-                        String condition = response.body().getWeather().get(0).getMain();
-                        conditionText.setText("Conditions: ".concat(condition));
-                        if (condition.equalsIgnoreCase("Clouds"))
-                            conditionImage.setImageResource(R.drawable.ic_wb_cloudy_black_24dp);
-                        else if (condition.equalsIgnoreCase("Sunny"))
-                            conditionImage.setImageResource(R.drawable.ic_wb_sunny_black_24dp);
-                        else if (condition.equalsIgnoreCase("Haze"))
-                            conditionImage.setImageResource(R.drawable.ic_haze_black_24dp);
-                        else
-                            conditionImage.setImageResource(R.drawable.ic_cloud_queue_black_24dp);
-                    }
+            @Override
+            public void onResponse(Call<Model> call, Response<Model> response) {
+                if (response.body() != null) {
+                    cityText.setText(response.body().getName());
+                    tempText.setText(String.valueOf(response.body().getMain().getTemp()).concat("°C"));
+                    pressureText.setText("Pressure: ".concat(String.valueOf(response.body().getMain().getPressure())));
+                    humidityText.setText("Humidity: ".concat(String.valueOf(response.body().getMain().getHumidity())));
+                    String condition = response.body().getWeather().get(0).getMain();
+                    conditionText.setText("Conditions: ".concat(condition));
+                    if (condition.equalsIgnoreCase("Clouds"))
+                        conditionImage.setImageResource(R.drawable.ic_wb_cloudy_black_24dp);
+                    else if (condition.equalsIgnoreCase("Clear"))
+                        conditionImage.setImageResource(R.drawable.ic_wb_sunny_black_24dp);
+                    else if (condition.equalsIgnoreCase("Haze"))
+                        conditionImage.setImageResource(R.drawable.ic_haze_black_24dp);
+                    else
+                        conditionImage.setImageResource(R.drawable.ic_cloud_queue_black_24dp);
                 }
+            }
 
-                @Override
-                public void onFailure(Call<Model> call, Throwable t) {
-                }
-            });
-        } catch (Exception e) {
-            Log.e(TAG, e.getMessage());
-        }
+            @Override
+            public void onFailure(Call<Model> call, Throwable t) {
+            }
+        });
     }
 }
 
