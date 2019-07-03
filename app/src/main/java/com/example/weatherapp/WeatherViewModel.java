@@ -13,6 +13,7 @@ public class WeatherViewModel {
 
     public Model getWeather(String location) {
         final Model[] body = new Model[0];
+
         Retrofit retrofit = RetrofitUtil.getRetrofitInstance();
         WeatherService weatherService = retrofit.create(WeatherService.class);
 

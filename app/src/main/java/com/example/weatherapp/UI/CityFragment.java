@@ -1,5 +1,6 @@
 package com.example.weatherapp.UI;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -20,22 +21,27 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class SecondFragment extends Fragment {
-    private static final String TAG = "SecondFragment";
+@SuppressLint("ValidFragment")
+public class CityFragment extends Fragment {
+    private static final String TAG = "CityFragment";
     private TextView cityText;
     private TextView tempText;
     private TextView conditionText;
     private TextView pressureText;
     private TextView humidityText;
     private ImageView conditionImage;
+    private int layoutId;
+    private String location;
 
-    public SecondFragment() {
+    public CityFragment(int layoutId, String location) {
+        this.layoutId = layoutId;
+        this.location = location;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, @NonNull ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        View rootView = inflater.inflate(R.layout.fragment_second, container, false);
+        View rootView = inflater.inflate(layoutId, container, false);
 
         cityText = rootView.findViewById(R.id.city_text);
         tempText = rootView.findViewById(R.id.temp_text);
@@ -44,7 +50,7 @@ public class SecondFragment extends Fragment {
         humidityText = rootView.findViewById(R.id.humidity_text);
         conditionImage = rootView.findViewById(R.id.condition_image);
 
-        getWeather("Delhi,in");
+        getWeather(location);
         return rootView;
     }
 
@@ -69,6 +75,8 @@ public class SecondFragment extends Fragment {
                             conditionImage.setImageResource(R.drawable.ic_wb_cloudy_black_24dp);
                         else if (condition.equalsIgnoreCase("Sunny"))
                             conditionImage.setImageResource(R.drawable.ic_wb_sunny_black_24dp);
+                        else if (condition.equalsIgnoreCase("Haze"))
+                            conditionImage.setImageResource(R.drawable.ic_haze_black_24dp);
                         else
                             conditionImage.setImageResource(R.drawable.ic_cloud_queue_black_24dp);
                     }
@@ -83,3 +91,4 @@ public class SecondFragment extends Fragment {
         }
     }
 }
+
