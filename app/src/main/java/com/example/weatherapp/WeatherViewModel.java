@@ -1,6 +1,6 @@
 package com.example.weatherapp;
 
-import com.example.weatherapp.Network.Model;
+import com.example.weatherapp.Object.Model;
 import com.example.weatherapp.Network.RetrofitUtil;
 import com.example.weatherapp.Network.WeatherService;
 

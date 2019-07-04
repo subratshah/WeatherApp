@@ -1,4 +1,4 @@
-package com.example.weatherapp.Adapter;
+package com.example.weatherapp;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.weatherapp.Network.Model;
+import com.example.weatherapp.Object.Model;
 import com.example.weatherapp.Network.RetrofitUtil;
 import com.example.weatherapp.Network.WeatherService;
 import com.example.weatherapp.R;
