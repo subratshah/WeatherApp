@@ -45,7 +45,7 @@ public class ViewPagerAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
         LayoutInflater inflater = LayoutInflater.from(mContext);
-        ViewGroup view = (ViewGroup) inflater.inflate(R.layout.fragment_city, container, false);
+        ViewGroup view = (ViewGroup) inflater.inflate(R.layout.common_layout, container, false);
 
         cityText = view.findViewById(R.id.city_text);
         tempText = view.findViewById(R.id.temp_text);
