@@ -7,6 +7,9 @@ import android.support.v7.app.AppCompatActivity;
 import com.example.weatherapp.Adapter.ViewPagerAdapter;
 import com.example.weatherapp.R;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -14,9 +17,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        String[] cityList = new String[]{"Chennai,in", "Varanasi,in", "Delhi,in", "London,uk", "Paris,it", "Sydney,au"};
+        List<String> cities = new ArrayList<>();
+        cities.add("Chennai,in");
+        cities.add("Varanasi,in");
+        cities.add("Delhi,in");
+        cities.add("London,uk");
+        cities.add("Paris,it");
+        cities.add("Sydney,au");
 
         ViewPager viewPager = findViewById(R.id.view_pager);
-        viewPager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager(), cityList));
+        viewPager.setAdapter(new ViewPagerAdapter(this, cities));
     }
 }
