@@ -4,24 +4,24 @@ import com.google.gson.annotations.SerializedName;
 
 public class Coord {
     @SerializedName("lon")
-    private double lon;
+    private String lon;
 
     @SerializedName("lat")
-    private double lat;
+    private String lat;
 
-    public double getLon() {
+    public String getLon() {
         return lon;
     }
 
-    public void setLon(double lon) {
+    public void setLon(String lon) {
         this.lon = lon;
     }
 
-    public double getLat() {
+    public String getLat() {
         return lat;
     }
 
-    public void setLat(double lat) {
+    public void setLat(String lat) {
         this.lat = lat;
     }
 }

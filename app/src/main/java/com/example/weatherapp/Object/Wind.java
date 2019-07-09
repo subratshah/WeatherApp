@@ -5,24 +5,24 @@ import com.google.gson.annotations.SerializedName;
 public class Wind {
 
     @SerializedName("speed")
-    private double speed;
+    private String speed;
 
     @SerializedName("deg")
-    private double deg;
+    private String deg;
 
-    public double getSpeed() {
+    public String getSpeed() {
         return speed;
     }
 
-    public void setSpeed(double speed) {
+    public void setSpeed(String speed) {
         this.speed = speed;
     }
 
-    public double getDeg() {
+    public String getDeg() {
         return deg;
     }
 
-    public void setDeg(double deg) {
+    public void setDeg(String deg) {
         this.deg = deg;
     }
 }

@@ -44,10 +44,21 @@ public class WeatherViewModel {
                     weather = response.body();
 
                     cityText.setText(weather.getName());
-                    tempText.setText(response.body().getMain().getTemp().concat("°C"));
-                    pressureText.setText("Pressure: ".concat(String.valueOf(response.body().getMain().getPressure())));
-                    humidityText.setText("Humidity: ".concat(String.valueOf(response.body().getMain().getHumidity())));
-                    conditionText.setText("Condition: ".concat(String.valueOf(response.body().getWeather().get(0).getMain())));
+                    tempText.setText(weather.getMain().getTemp().concat("°C"));
+                    pressureText.setText("Pressure: ".concat(weather.getMain().getPressure()).concat(" bar"));
+                    humidityText.setText("Humidity: ".concat(weather.getMain().getHumidity()).concat("%"));
+                    conditionText.setText("Condition: ".concat(weather.getWeather().get(0).getMain()));
+
+                    String condition = response.body().getWeather().get(0).getMain();
+                    conditionText.setText("Conditions: ".concat(condition));
+                    if (condition.equalsIgnoreCase("Clouds"))
+                        conditionImage.setImageResource(R.drawable.ic_wb_cloudy_black_24dp);
+                    else if (condition.equalsIgnoreCase("Clear"))
+                        conditionImage.setImageResource(R.drawable.ic_wb_sunny_black_24dp);
+                    else if (condition.equalsIgnoreCase("Haze"))
+                        conditionImage.setImageResource(R.drawable.ic_haze_black_24dp);
+                    else
+                        conditionImage.setImageResource(R.drawable.ic_cloud_queue_black_24dp);
                 }
             }
 
@@ -55,6 +66,7 @@ public class WeatherViewModel {
             public void onFailure(Call<Model> call, Throwable t) {
             }
         });
+        // NULL VALUES IN WEATHER OUTSIDE RESPONSE
     }
 }
 

@@ -4,10 +4,10 @@ import com.google.gson.annotations.SerializedName;
 
 public class Sys {
     @SerializedName("type")
-    private int type;
+    private String type;
 
     @SerializedName("id")
-    private int id;
+    private String id;
 
     @SerializedName("message")
     private String message;
@@ -16,24 +16,24 @@ public class Sys {
     private String country;
 
     @SerializedName("sunrise")
-    private long sunrise;
+    private String sunrise;
 
     @SerializedName("sunset")
-    private long sunset;
+    private String sunset;
 
-    public int getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(int type) {
+    public void setType(String type) {
         this.type = type;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -53,19 +53,19 @@ public class Sys {
         this.country = country;
     }
 
-    public long getSunrise() {
+    public String getSunrise() {
         return sunrise;
     }
 
-    public void setSunrise(long sunrise) {
+    public void setSunrise(String sunrise) {
         this.sunrise = sunrise;
     }
 
-    public long getSunset() {
+    public String getSunset() {
         return sunset;
     }
 
-    public void setSunset(long sunset) {
+    public void setSunset(String sunset) {
         this.sunset = sunset;
     }
 }

@@ -12,7 +12,6 @@ import java.util.List;
 public class ViewPagerAdapter extends PagerAdapter {
     private Context mContext;
     private List<String> mCities;
-    private WeatherViewModel viewModel;
 
     ViewPagerAdapter(Context context, List<String> cities) {
         mContext = context;
@@ -30,7 +29,7 @@ public class ViewPagerAdapter extends PagerAdapter {
         LayoutInflater inflater = LayoutInflater.from(mContext);
         ViewGroup view = (ViewGroup) inflater.inflate(R.layout.common_layout, container, false);
 
-        viewModel = new WeatherViewModel(view);
+        WeatherViewModel viewModel = new WeatherViewModel(view);
         viewModel.getWeather(mCities.get(position));
 
         container.addView(view);

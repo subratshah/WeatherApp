@@ -4,13 +4,13 @@ import com.google.gson.annotations.SerializedName;
 
 public class Clouds {
     @SerializedName("all")
-    private int all;
+    private String all;
 
-    public int getAll() {
+    public String getAll() {
         return all;
     }
 
-    public void setAll(int all) {
+    public void setAll(String all) {
         this.all = all;
     }
 }

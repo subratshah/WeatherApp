@@ -18,7 +18,7 @@ public class Model {
     private Main main;
 
     @SerializedName("visibility")
-    private int visibility;
+    private String visibility;
 
     @SerializedName("wind")
     private Wind wind;
@@ -42,7 +42,7 @@ public class Model {
     private String name;
 
     @SerializedName("cod")
-    private int cod;
+    private String cod;
 
     public Coord getCoord() {
         return coord;
@@ -76,11 +76,11 @@ public class Model {
         this.main = main;
     }
 
-    public int getVisibility() {
+    public String getVisibility() {
         return visibility;
     }
 
-    public void setVisibility(int visibility) {
+    public void setVisibility(String visibility) {
         this.visibility = visibility;
     }
 
@@ -140,11 +140,11 @@ public class Model {
         this.name = name;
     }
 
-    public int getCod() {
+    public String getCod() {
         return cod;
     }
 
-    public void setCod(int cod) {
+    public void setCod(String cod) {
         this.cod = cod;
     }
 }
