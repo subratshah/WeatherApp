@@ -1,48 +1,46 @@
 package com.example.weatherapp;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.List;
+import com.example.weatherapp.databinding.ViewpagerItemBinding;
 
 public class ViewPagerAdapter extends PagerAdapter {
-    private Context mContext;
-    private List<String> mCities;
+    private WeatherViewModel weatherViewModel;
 
-    ViewPagerAdapter(Context context, List<String> cities) {
-        mContext = context;
-        mCities = cities;
+    ViewPagerAdapter(WeatherViewModel weatherViewModel) {
+        this.weatherViewModel = weatherViewModel;
     }
 
     @Override
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
-        container.removeView((View) object);
+        ViewpagerItemBinding viewpagerItemBinding = (ViewpagerItemBinding) object;
+        viewpagerItemBinding.setViewmodel(null);
+        container.removeView(viewpagerItemBinding.getRoot());
     }
 
     @NonNull
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
-        LayoutInflater inflater = LayoutInflater.from(mContext);
-        ViewGroup view = (ViewGroup) inflater.inflate(R.layout.common_layout, container, false);
+        LayoutInflater inflater = LayoutInflater.from(container.getContext());
 
-        WeatherViewModel viewModel = new WeatherViewModel(view);
-        viewModel.getWeather(mCities.get(position));
+        ViewpagerItemBinding viewpagerItemBinding = ViewpagerItemBinding.inflate(inflater, container, true);
+        viewpagerItemBinding.setViewmodel(weatherViewModel);
+        viewpagerItemBinding.executePendingBindings();
 
-        container.addView(view);
-        return view;
+        return viewpagerItemBinding;
     }
 
     @Override
     public int getCount() {
-        return mCities.size();
+        return 4;
     }
 
     @Override
     public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
-        return view == object;
+        return ((ViewpagerItemBinding) object).getRoot() == view;
     }
 }

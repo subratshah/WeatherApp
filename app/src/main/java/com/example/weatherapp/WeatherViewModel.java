@@ -1,41 +1,49 @@
 package com.example.weatherapp;
 
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.arch.lifecycle.Lifecycle;
+import android.arch.lifecycle.LifecycleObserver;
+import android.arch.lifecycle.OnLifecycleEvent;
+import android.databinding.ObservableField;
 
 import com.example.weatherapp.Network.RetrofitUtil;
 import com.example.weatherapp.Network.WeatherService;
 import com.example.weatherapp.Object.Model;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class WeatherViewModel {
-    Model weather = new Model();
-    TextView cityText;
-    TextView tempText;
-    TextView conditionText;
-    TextView pressureText;
-    TextView humidityText;
-    ImageView conditionImage;
+public class WeatherViewModel implements LifecycleObserver {
+    private WeatherService weatherService;
+    private Model weather = new Model();
+    List<String> cities = new ArrayList<>();
 
-    public WeatherViewModel(View view) {
-        cityText = view.findViewById(R.id.city_text);
-        tempText = view.findViewById(R.id.temp_text);
-        conditionText = view.findViewById(R.id.condition_text);
-        pressureText = view.findViewById(R.id.pressure_text);
-        humidityText = view.findViewById(R.id.humidity_text);
-        conditionImage = view.findViewById(R.id.condition_image);
+    public ObservableField<String> cityText = new ObservableField<>();
+    public ObservableField<String> tempText = new ObservableField<>();
+    public ObservableField<String> conditionText = new ObservableField<>();
+    public ObservableField<String> pressureText = new ObservableField<>();
+    public ObservableField<String> humidityText = new ObservableField<>();
+    public ObservableField<String> conditionImageUrl = new ObservableField<>();
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
+    void init() {
+        Retrofit retrofit = RetrofitUtil.getRetrofitInstance();
+        weatherService = retrofit.create(WeatherService.class);
+
+        cities.add("Chennai,in");
+        cities.add("Varanasi,in");
+        cities.add("London,uk");
+        cities.add("Sydney,au");
+
+        onPageSwipe(0);
     }
 
-    void getWeather(String location) {
-        Retrofit retrofit = RetrofitUtil.getRetrofitInstance();
-        WeatherService weatherService = retrofit.create(WeatherService.class);
-
-        Call<Model> call = weatherService.getWeather("metric", location);
+    public void onPageSwipe(int position) {
+        Call<Model> call = weatherService.getWeather("metric", cities.get(position));
         call.enqueue(new Callback<Model>() {
 
             @Override
@@ -43,22 +51,12 @@ public class WeatherViewModel {
                 if (response.body() != null) {
                     weather = response.body();
 
-                    cityText.setText(weather.getName());
-                    tempText.setText(weather.getMain().getTemp().concat("°C"));
-                    pressureText.setText("Pressure: ".concat(weather.getMain().getPressure()).concat(" bar"));
-                    humidityText.setText("Humidity: ".concat(weather.getMain().getHumidity()).concat("%"));
-                    conditionText.setText("Condition: ".concat(weather.getWeather().get(0).getMain()));
-
-                    String condition = response.body().getWeather().get(0).getMain();
-                    conditionText.setText("Conditions: ".concat(condition));
-                    if (condition.equalsIgnoreCase("Clouds"))
-                        conditionImage.setImageResource(R.drawable.ic_wb_cloudy_black_24dp);
-                    else if (condition.equalsIgnoreCase("Clear"))
-                        conditionImage.setImageResource(R.drawable.ic_wb_sunny_black_24dp);
-                    else if (condition.equalsIgnoreCase("Haze"))
-                        conditionImage.setImageResource(R.drawable.ic_haze_black_24dp);
-                    else
-                        conditionImage.setImageResource(R.drawable.ic_cloud_queue_black_24dp);
+                    cityText.set(weather.getName());
+                    tempText.set(weather.getMain().getTemp().concat("°C"));
+                    conditionText.set(weather.getWeather().get(0).getMain());
+                    pressureText.set("Pressure: ".concat(weather.getMain().getPressure()).concat(" bar"));
+                    humidityText.set("Humidity: ".concat(weather.getMain().getHumidity()).concat("%"));
+                    conditionImageUrl.set("http://api.openweathermap.org/img/w/" + weather.getWeather().get(0).getIcon() + ".png");
                 }
             }
 
@@ -66,7 +64,8 @@ public class WeatherViewModel {
             public void onFailure(Call<Model> call, Throwable t) {
             }
         });
-        // NULL VALUES IN WEATHER OUTSIDE RESPONSE
     }
-}
 
+
+
+}
