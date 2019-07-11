@@ -2,7 +2,6 @@ package com.example.weatherapp;
 
 import android.databinding.BindingAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.View;
 import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
@@ -29,9 +28,11 @@ public class ViewPagerBindingAdapter {
     }
 
     @BindingAdapter("fetchImage")
-    public static void fetchImage(View view, String imageUrl){
-        ImageView imageView = (ImageView)view;
-        Picasso.with(imageView.getContext()).load(imageUrl).placeholder(R.drawable.ic_haze_black_24dp).into(imageView);
+    public static void fetchImage(ImageView imageView, String imageUrl) {
+        Picasso.get()
+                .load(imageUrl)
+                .error(R.drawable.ic_cloud_off_black_24dp)
+                .into(imageView);
     }
 
     @FunctionalInterface

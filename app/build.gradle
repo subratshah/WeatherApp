@@ -35,6 +35,6 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
     implementation 'com.android.support:design:28.0.0'
 
-    //Picasso for Image
-    implementation 'com.squareup.picasso:picasso:2.5.2'
+    //Load Image form URL
+    implementation 'com.squareup.picasso:picasso:2.7+'
 }

@@ -4,10 +4,15 @@ import android.arch.lifecycle.Lifecycle;
 import android.arch.lifecycle.LifecycleObserver;
 import android.arch.lifecycle.OnLifecycleEvent;
 import android.databinding.ObservableField;
+import android.media.Image;
+import android.net.Uri;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.example.weatherapp.Network.RetrofitUtil;
 import com.example.weatherapp.Network.WeatherService;
 import com.example.weatherapp.Object.Model;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,7 +70,4 @@ public class WeatherViewModel implements LifecycleObserver {
             }
         });
     }
-
-
-
 }
