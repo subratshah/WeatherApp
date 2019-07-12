@@ -15,11 +15,7 @@ public class MainActivity extends AppCompatActivity implements LifecycleOwner {
         ActivityMainBinding activityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
         WeatherViewModel weatherViewModel = new WeatherViewModel();
-        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(weatherViewModel);
-
-        activityMainBinding.viewPager.setAdapter(viewPagerAdapter);
-        activityMainBinding.setViewmodel(weatherViewModel);
-
         this.getLifecycle().addObserver(weatherViewModel);
+        activityMainBinding.setViewModel(weatherViewModel);
     }
 }

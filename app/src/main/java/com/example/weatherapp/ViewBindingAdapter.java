@@ -6,7 +6,7 @@ import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 
-public class ViewPagerBindingAdapter {
+public class ViewBindingAdapter {
 
     @BindingAdapter("onPageChangeListener")
     public static void onPageChange(ViewPager viewPager, final PageSelectionListener pageSelectionListener) {

@@ -6,7 +6,7 @@
     <data>
 
         <variable
-            name="viewmodel"
+            name="viewModel"
             type="com.example.weatherapp.WeatherViewModel" />
     </data>
 
@@ -15,19 +15,18 @@
         android:layout_height="match_parent"
         tools:context=".MainActivity">
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/view_pager"
-            onPageChangeListener="@{viewmodel::onPageSwipe}"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
+            android:adapter="@{viewModel.adapter}"
+            android:scrollbars="vertical"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="parent" />
+            app:layout_constraintTop_toBottomOf="parent"
+            android:background="@color/colorPrimary"/>
 
     </android.support.constraint.ConstraintLayout>
 </layout>
