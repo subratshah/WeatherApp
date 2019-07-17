@@ -8,6 +8,10 @@ import android.view.ViewGroup;
 
 import com.example.weatherapp.databinding.ViewpagerItemBinding;
 
+import javax.inject.Inject;
+
+import dagger.Module;
+
 public class ViewPagerAdapter extends PagerAdapter {
     private WeatherViewModel weatherViewModel;
 
