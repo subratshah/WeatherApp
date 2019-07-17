@@ -10,7 +10,7 @@ import dagger.android.support.AndroidSupportInjectionModule;
 @Component(modules = {
         AndroidSupportInjectionModule.class,         //Need to use Dagger in the App
         ActivityModule.class,                        //Need to add Activities that use Dagger
-        NetwrokModule.class
+        NetworkModule.class
 })
 interface AppComponent extends AndroidInjector<WeatherApplication> {
 

@@ -5,7 +5,7 @@ import android.arch.lifecycle.LifecycleObserver;
 import android.arch.lifecycle.OnLifecycleEvent;
 import android.databinding.ObservableField;
 
-import com.example.weatherapp.Network.ServiceLayer;
+import com.example.weatherapp.Network.ServiceManager;
 import com.example.weatherapp.Object.Model;
 
 import java.util.ArrayList;
@@ -15,7 +15,7 @@ import javax.inject.Inject;
 
 public class WeatherViewModel implements LifecycleObserver {
 
-    private ServiceLayer serviceLayer;
+    private ServiceManager serviceManager;
     List<String> cities = new ArrayList<>();
 
     public ObservableField<String> cityText = new ObservableField<>();
@@ -26,8 +26,8 @@ public class WeatherViewModel implements LifecycleObserver {
     public ObservableField<String> conditionImageUrl = new ObservableField<>();
 
     @Inject
-    public WeatherViewModel(ServiceLayer serviceLayer) {
-        this.serviceLayer = serviceLayer;
+    public WeatherViewModel(ServiceManager serviceManager) {
+        this.serviceManager = serviceManager;
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
@@ -37,11 +37,11 @@ public class WeatherViewModel implements LifecycleObserver {
         cities.add("London,uk");
         cities.add("Sydney,au");
 
-        onPageSwipe(0);
+        getWeather(0);
     }
 
-    public void onPageSwipe(int position) {
-        serviceLayer.getWeather("metric", cities.get(position)).subscribe(this::populateView);
+    public void getWeather(int position) {
+        serviceManager.getWeather("metric", cities.get(position)).subscribe(this::populateView);
     }
 
     public void populateView(Model weather) {
