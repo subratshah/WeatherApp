@@ -4,27 +4,18 @@ import android.arch.lifecycle.Lifecycle;
 import android.arch.lifecycle.LifecycleObserver;
 import android.arch.lifecycle.OnLifecycleEvent;
 import android.databinding.ObservableField;
-import android.media.Image;
-import android.net.Uri;
-import android.view.View;
-import android.widget.ImageView;
 
-import com.example.weatherapp.Network.RetrofitUtil;
-import com.example.weatherapp.Network.WeatherService;
+import com.example.weatherapp.Network.ServiceLayer;
 import com.example.weatherapp.Object.Model;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
+import javax.inject.Inject;
 
 public class WeatherViewModel implements LifecycleObserver {
-    private WeatherService weatherService;
-    private Model weather = new Model();
+
+    private ServiceLayer serviceLayer;
     List<String> cities = new ArrayList<>();
 
     public ObservableField<String> cityText = new ObservableField<>();
@@ -34,11 +25,13 @@ public class WeatherViewModel implements LifecycleObserver {
     public ObservableField<String> humidityText = new ObservableField<>();
     public ObservableField<String> conditionImageUrl = new ObservableField<>();
 
+    @Inject
+    public WeatherViewModel(ServiceLayer serviceLayer) {
+        this.serviceLayer = serviceLayer;
+    }
+
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     void init() {
-        Retrofit retrofit = RetrofitUtil.getRetrofitInstance();
-        weatherService = retrofit.create(WeatherService.class);
-
         cities.add("Chennai,in");
         cities.add("Varanasi,in");
         cities.add("London,uk");
@@ -48,26 +41,17 @@ public class WeatherViewModel implements LifecycleObserver {
     }
 
     public void onPageSwipe(int position) {
-        Call<Model> call = weatherService.getWeather("metric", cities.get(position));
-        call.enqueue(new Callback<Model>() {
+        serviceLayer.getWeather("metric", cities.get(position)).subscribe(this::populateView);
+    }
 
-            @Override
-            public void onResponse(Call<Model> call, Response<Model> response) {
-                if (response.body() != null) {
-                    weather = response.body();
-
-                    cityText.set(weather.getName());
-                    tempText.set(weather.getMain().getTemp().concat("°C"));
-                    conditionText.set(weather.getWeather().get(0).getMain());
-                    pressureText.set("Pressure: ".concat(weather.getMain().getPressure()).concat(" bar"));
-                    humidityText.set("Humidity: ".concat(weather.getMain().getHumidity()).concat("%"));
-                    conditionImageUrl.set("http://api.openweathermap.org/img/w/" + weather.getWeather().get(0).getIcon() + ".png");
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Model> call, Throwable t) {
-            }
-        });
+    public void populateView(Model weather) {
+        if (weather != null) {
+            cityText.set(weather.getName());
+            tempText.set(weather.getMain().getTemp().concat("°C"));
+            conditionText.set(weather.getWeather().get(0).getMain());
+            pressureText.set("Pressure: ".concat(weather.getMain().getPressure()).concat(" bar"));
+            humidityText.set("Humidity: ".concat(weather.getMain().getHumidity()).concat("%"));
+            conditionImageUrl.set("http://api.openweathermap.org/img/w/" + weather.getWeather().get(0).getIcon() + ".png");
+        }
     }
 }
