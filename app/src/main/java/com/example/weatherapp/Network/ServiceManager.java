@@ -8,12 +8,12 @@ import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-public class ServiceLayer {
+public class ServiceManager {
 
     WeatherService weatherService;
 
     @Inject
-    public ServiceLayer(WeatherService weatherService) {
+    public ServiceManager(WeatherService weatherService) {
         this.weatherService = weatherService;
     }
 
